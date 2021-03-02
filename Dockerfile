@@ -15,24 +15,12 @@ RUN apt update
 RUN apt -y upgrade
 
 RUN apt -y install \
-	bash-completion \
 	git \
 	gnupg \
 	keyutils \
-	libcap2-bin \
-	lsof \
-	man-db \
-	mlocate \
-	mtr \
-	rsync \
 	sudo \
-	tcpdump \
 	time \
-	traceroute \
-	tree \
-	unzip \
 	wget \
-	zip \
 	zsh 
 
 RUN sed -i -e 's/ ALL$/ NOPASSWD:ALL/' /etc/sudoers
