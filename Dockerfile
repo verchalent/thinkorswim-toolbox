@@ -10,9 +10,7 @@ LABEL com.github.containers.toolbox="true" \
 
 
 
-RUN apt update
-
-RUN apt -y upgrade
+RUN apt update && apt -y upgrade
 
 RUN apt -y install \
 	git \
@@ -31,6 +29,11 @@ RUN apt update
 RUN apt -y install zulu-8
 
 RUN apt clean
+
+#previously built manually - needs testing
+RUN wget https://mediaserver.thinkorswim.com/installer/InstFiles/thinkorswim_installer.sh /
+RUN chmod +x /thinkorswim_installer.sh
+RUN /thinkorswim_installer.sh
 
 RUN echo VARIANT_ID=container >> /etc/os-release
 RUN touch /etc/localtime
