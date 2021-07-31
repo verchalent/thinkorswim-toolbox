@@ -26,7 +26,7 @@ RUN sed -i -e 's/ ALL$/ NOPASSWD:ALL/' /etc/sudoers
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9
 RUN echo 'deb http://repos.azulsystems.com/debian stable main' | sudo tee -a /etc/apt/sources.list
 RUN apt update
-RUN apt -y install zulu-8
+RUN apt -y install zulu-11
 
 RUN apt clean
 
