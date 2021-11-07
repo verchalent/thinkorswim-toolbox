@@ -8,34 +8,11 @@ LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox command" \
       summary="Base image for creating Debian sid toolbox containers" 
 
+# Setup Install Location
+RUN mkdir -p /tos-Install
+ADD scripts/ /tos-Install
+RUN cd /tos-Install; chmod +x *.sh
 
+RUN /tos-Install/setup-tos.sh
 
-RUN apt update && apt -y upgrade
-
-RUN apt -y install \
-	git \
-	gnupg \
-	keyutils \
-	sudo \
-	time \
-	wget \
-	zsh 
-
-RUN sed -i -e 's/ ALL$/ NOPASSWD:ALL/' /etc/sudoers
-
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9
-RUN echo 'deb http://repos.azulsystems.com/debian stable main' | sudo tee -a /etc/apt/sources.list
-RUN apt update
-RUN apt -y install zulu-11
-
-RUN apt clean
-
-#previously built manually - needs testing
-RUN wget https://mediaserver.thinkorswim.com/installer/InstFiles/thinkorswim_installer.sh /
-RUN chmod +x /thinkorswim_installer.sh
-RUN /thinkorswim_installer.sh
-
-RUN echo VARIANT_ID=container >> /etc/os-release
-RUN touch /etc/localtime
-
-CMD /bin/sh
+CMD ["/bin/sh"]
